@@ -1,0 +1,29 @@
+table dim_fuel
+	lineageTag: 5bfeec2d-1155-46cb-bb1c-71c31a4c578d
+	sourceLineageTag: [dbo].[dim_fuel]
+
+	column fuel_type
+		dataType: string
+		lineageTag: 2ec84d93-3258-48b1-8333-2b7c16da765f
+		sourceLineageTag: fuel_type
+		summarizeBy: none
+		sourceColumn: fuel_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column fuel_label
+		dataType: string
+		lineageTag: b05811f9-e7d7-4d60-915f-1958b95e4e2c
+		sourceLineageTag: fuel_label
+		summarizeBy: none
+		sourceColumn: fuel_label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_fuel = entity
+		mode: directLake
+		source
+			entityName: dim_fuel
+			schemaName: dbo
+			expressionSource: 'DirectLake - vehicles_lh'
+

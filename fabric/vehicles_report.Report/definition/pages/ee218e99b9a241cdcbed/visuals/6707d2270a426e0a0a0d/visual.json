@@ -1,0 +1,60 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name": "6707d2270a426e0a0a0d",
+    "position": {
+        "x": 760,
+        "y": 24,
+        "z": 0,
+        "height": 170,
+        "width": 360,
+        "tabOrder": 0
+    },
+    "visual": {
+        "visualType": "cardVisual",
+        "query": {
+            "queryState": {
+                "Data": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
+                                    "Property": "Listings Label"
+                                }
+                            },
+                            "queryRef": "fact_listing.Listings Label",
+                            "nativeQueryRef": "Priced listings",
+                            "displayName": "Priced listings"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "isDefaultSort": true
+            }
+        },
+        "drillFilterOtherVisuals": true
+    },
+    "filterConfig": {
+        "filters": [
+            {
+                "name": "1a543157ec1573274129",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "Listings Label"
+                    }
+                },
+                "type": "Advanced"
+            }
+        ]
+    }
+}

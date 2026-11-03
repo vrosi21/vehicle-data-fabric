@@ -1,0 +1,12 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+    "metadata": {
+        "type": "Notebook",
+        "displayName": "vehicle_medallion",
+        "description": "New notebook"
+    },
+    "config": {
+        "version": "2.0",
+        "logicalId": "5ceef065-bd88-45fe-be9d-c20b2bb46d3c"
+    }
+}

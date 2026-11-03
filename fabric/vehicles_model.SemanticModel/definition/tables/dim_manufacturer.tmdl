@@ -1,0 +1,20 @@
+table dim_manufacturer
+	lineageTag: cd406b33-285c-47f1-8d9d-64f8e495c49a
+	sourceLineageTag: [dbo].[dim_manufacturer]
+
+	column manufacturer
+		dataType: string
+		lineageTag: 986810b8-f1ba-4351-a890-beeadc376110
+		sourceLineageTag: manufacturer
+		summarizeBy: none
+		sourceColumn: manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_manufacturer = entity
+		mode: directLake
+		source
+			entityName: dim_manufacturer
+			schemaName: dbo
+			expressionSource: 'DirectLake - vehicles_lh'
+

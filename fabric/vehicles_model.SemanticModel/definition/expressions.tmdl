@@ -1,0 +1,11 @@
+expression 'DirectLake - vehicles_lh' =
+		let
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/192d94da-0f3e-4809-a2ff-4402fc17463d/24f6cfe5-12d0-4b66-b9af-f5a2fc61e11b", [HierarchicalNavigation=true])
+		in
+		    Source
+	lineageTag: e4fea5f4-492e-4ee4-9920-e4157ade2a5b
+
+	annotation PBI_IncludeFutureArtifacts = False
+
+	annotation PBI_RemovedChildren = [{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[silver_listings]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[silver_rejects]"}},"objectType":"Table"},{"remoteItemId":{"analysisServicesObject":{"sourceName":null,"sourceLineageTag":"[dbo].[bronze_listings]"}},"objectType":"Table"}]
+

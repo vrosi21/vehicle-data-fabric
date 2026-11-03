@@ -1,0 +1,123 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name": "94527555aebe49a60900",
+    "position": {
+        "x": 968,
+        "y": 726,
+        "z": 5,
+        "height": 330,
+        "width": 928,
+        "tabOrder": 5
+    },
+    "visual": {
+        "visualType": "textbox",
+        "objects": {
+            "general": [
+                {
+                    "properties": {
+                        "paragraphs": [
+                            {
+                                "textRuns": [
+                                    {
+                                        "value": "About this data",
+                                        "textStyle": {
+                                            "fontWeight": "bold",
+                                            "fontSize": "18pt"
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                "textRuns": [
+                                    {
+                                        "value": "12 OLX.ba scrapes, each covering one brand or price band (source 9: premium only). Read the charts as the collected sample, not the whole market.",
+                                        "textStyle": {
+                                            "fontSize": "14pt"
+                                        }
+                                    }
+                                ],
+                                "listType": "bullet"
+                            },
+                            {
+                                "textRuns": [
+                                    {
+                                        "value": "383 listings without a price are excluded; 49 duplicates across sources are merged.",
+                                        "textStyle": {
+                                            "fontSize": "14pt"
+                                        }
+                                    }
+                                ],
+                                "listType": "bullet"
+                            },
+                            {
+                                "textRuns": [
+                                    {
+                                        "value": "Charts show brands with 10+ listings and years with 5+, so no median rests on 1 or 2 cars.",
+                                        "textStyle": {
+                                            "fontSize": "14pt"
+                                        }
+                                    }
+                                ],
+                                "listType": "bullet"
+                            },
+                            {
+                                "textRuns": [
+                                    {
+                                        "value": "38% of listings have unknown fuel: 4 sources had no fuel column.",
+                                        "textStyle": {
+                                            "fontSize": "14pt"
+                                        }
+                                    }
+                                ],
+                                "listType": "bullet"
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        "visualContainerObjects": {
+            "background": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "true"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "padding": [
+                {
+                    "properties": {
+                        "top": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "16D"
+                                }
+                            }
+                        },
+                        "left": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "16D"
+                                }
+                            }
+                        },
+                        "right": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "16D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "drillFilterOtherVisuals": true
+    }
+}

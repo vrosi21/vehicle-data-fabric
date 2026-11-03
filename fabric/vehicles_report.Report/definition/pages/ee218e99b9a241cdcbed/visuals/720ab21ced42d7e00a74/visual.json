@@ -1,0 +1,184 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name": "720ab21ced42d7e00a74",
+    "position": {
+        "x": 968,
+        "y": 210,
+        "z": 3,
+        "height": 500,
+        "width": 928,
+        "tabOrder": 3
+    },
+    "visual": {
+        "visualType": "clusteredColumnChart",
+        "query": {
+            "queryState": {
+                "Category": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
+                                    "Property": "production_year"
+                                }
+                            },
+                            "queryRef": "fact_listing.production_year",
+                            "nativeQueryRef": "production_year",
+                            "active": true
+                        }
+                    ]
+                },
+                "Y": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
+                                    "Property": "Median Price (BAM)"
+                                }
+                            },
+                            "queryRef": "fact_listing.Median Price (BAM)",
+                            "nativeQueryRef": "Median Price (BAM)"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Measure": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "fact_listing"
+                                    }
+                                },
+                                "Property": "Median Price (BAM)"
+                            }
+                        },
+                        "direction": "Descending"
+                    }
+                ],
+                "isDefaultSort": true
+            }
+        },
+        "visualContainerObjects": {
+            "title": [
+                {
+                    "properties": {
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Median asking price by production year (BAM)'"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "drillFilterOtherVisuals": true
+    },
+    "filterConfig": {
+        "filters": [
+            {
+                "name": "76d8bf5f4691819b4078",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "Median Price (BAM)"
+                    }
+                },
+                "type": "Advanced"
+            },
+            {
+                "name": "cac7a110c4b43860e225",
+                "field": {
+                    "Column": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "production_year"
+                    }
+                },
+                "type": "Advanced"
+            },
+            {
+                "name": "99bad750e5a05106cea8",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "Listings"
+                    }
+                },
+                "type": "Advanced",
+                "filter": {
+                    "Version": 2,
+                    "From": [
+                        {
+                            "Name": "f",
+                            "Entity": "fact_listing",
+                            "Type": 0
+                        }
+                    ],
+                    "Where": [
+                        {
+                            "Condition": {
+                                "Comparison": {
+                                    "ComparisonKind": 2,
+                                    "Left": {
+                                        "Measure": {
+                                            "Expression": {
+                                                "SourceRef": {
+                                                    "Source": "f"
+                                                }
+                                            },
+                                            "Property": "Listings"
+                                        }
+                                    },
+                                    "Right": {
+                                        "Literal": {
+                                            "Value": "5L"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "howCreated": "User"
+            }
+        ]
+    }
+}

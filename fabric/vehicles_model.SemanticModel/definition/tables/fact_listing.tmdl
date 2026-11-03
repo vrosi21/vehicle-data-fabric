@@ -1,0 +1,165 @@
+table fact_listing
+	lineageTag: 045066de-621c-4150-88ee-842340868bff
+	sourceLineageTag: [dbo].[fact_listing]
+
+	measure Listings = COUNTROWS(fact_listing)
+		formatString: #,0
+		lineageTag: b0565c24-e2fc-4edb-8d97-12cae05aaa64
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Median Price (BAM)' = MEDIAN(fact_listing[price_bam])
+		formatString: #,0
+		lineageTag: 17f2882f-bd1e-468a-b57f-8d7d938acf5c
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Avg Price (BAM)' = AVERAGE(fact_listing[price_bam])
+		lineageTag: 839b2842-bc6e-4cdb-bbcf-98cdf0bbb9a9
+
+		changedProperty = Name
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Median Mileage (km)' = MEDIAN(fact_listing[mileage_km])
+		formatString: #,0
+		lineageTag: 99f5eb1b-c69a-4eb7-9ae2-db98ff05e401
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Listings Label' = FORMAT([Listings], "#,0")
+		lineageTag: fc22dae8-7b6d-482e-91cb-387590551360
+
+	column listing_id
+		dataType: string
+		lineageTag: 4b78f9a8-1308-4613-a09a-552344f91cae
+		sourceLineageTag: listing_id
+		summarizeBy: none
+		sourceColumn: listing_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column manufacturer
+		dataType: string
+		lineageTag: 1eb220dd-6a8f-4b58-bee2-46525c512f51
+		sourceLineageTag: manufacturer
+		summarizeBy: none
+		sourceColumn: manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	column model
+		dataType: string
+		lineageTag: 440e1125-b79e-432a-82f0-44244a8df020
+		sourceLineageTag: model
+		summarizeBy: none
+		sourceColumn: model
+
+		annotation SummarizationSetBy = Automatic
+
+	column general_model
+		dataType: string
+		lineageTag: 03ca20f6-c087-4932-8537-b42dfd604f96
+		sourceLineageTag: general_model
+		summarizeBy: none
+		sourceColumn: general_model
+
+		annotation SummarizationSetBy = Automatic
+
+	column production_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 707ce719-2534-4428-95c6-177a502f1bdd
+		sourceLineageTag: production_year
+		summarizeBy: none
+		sourceColumn: production_year
+
+		changedProperty = SummarizeBy
+
+		annotation SummarizationSetBy = User
+
+	column fuel_type
+		dataType: string
+		lineageTag: 60c8933e-495c-4d45-bb7a-17baff8bb949
+		sourceLineageTag: fuel_type
+		summarizeBy: none
+		sourceColumn: fuel_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column transmission
+		dataType: string
+		lineageTag: 2e429e34-7fbe-43dd-a142-c3baa9a6dbee
+		sourceLineageTag: transmission
+		summarizeBy: none
+		sourceColumn: transmission
+
+		annotation SummarizationSetBy = Automatic
+
+	column color
+		dataType: string
+		lineageTag: eb75c880-d65f-42af-b9cf-75853d190197
+		sourceLineageTag: color
+		summarizeBy: none
+		sourceColumn: color
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_bam
+		dataType: double
+		lineageTag: 90df7bda-79fe-4784-b811-958d9c93a902
+		sourceLineageTag: price_bam
+		summarizeBy: sum
+		sourceColumn: price_bam
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column mileage_km
+		dataType: int64
+		formatString: 0
+		lineageTag: ccd05580-728a-4b5c-9109-42e6f7bad327
+		sourceLineageTag: mileage_km
+		summarizeBy: sum
+		sourceColumn: mileage_km
+
+		annotation SummarizationSetBy = Automatic
+
+	column engine_power_kw
+		dataType: double
+		lineageTag: 66307f8d-a80b-4feb-84d7-884e2412bd41
+		sourceLineageTag: engine_power_kw
+		summarizeBy: sum
+		sourceColumn: engine_power_kw
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column source_file
+		dataType: string
+		lineageTag: cf930171-6d1b-4acd-9083-8faae2279aa6
+		sourceLineageTag: source_file
+		summarizeBy: none
+		sourceColumn: source_file
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_listing = entity
+		mode: directLake
+		source
+			entityName: fact_listing
+			schemaName: dbo
+			expressionSource: 'DirectLake - vehicles_lh'
+

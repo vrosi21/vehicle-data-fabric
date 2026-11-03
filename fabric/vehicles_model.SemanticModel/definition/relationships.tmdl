@@ -1,0 +1,8 @@
+relationship 249eae16-7886-821f-5443-7464c7195437
+	fromColumn: fact_listing.manufacturer
+	toColumn: dim_manufacturer.manufacturer
+
+relationship 31d519eb-1160-bdd4-7d33-99d035ec010d
+	fromColumn: fact_listing.fuel_type
+	toColumn: dim_fuel.fuel_type
+

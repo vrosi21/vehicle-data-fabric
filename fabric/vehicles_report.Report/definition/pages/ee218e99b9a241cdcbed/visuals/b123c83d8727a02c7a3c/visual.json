@@ -1,0 +1,184 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name": "b123c83d8727a02c7a3c",
+    "position": {
+        "x": 24,
+        "y": 210,
+        "z": 2,
+        "height": 500,
+        "width": 928,
+        "tabOrder": 2
+    },
+    "visual": {
+        "visualType": "clusteredBarChart",
+        "query": {
+            "queryState": {
+                "Category": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "dim_manufacturer"
+                                        }
+                                    },
+                                    "Property": "manufacturer"
+                                }
+                            },
+                            "queryRef": "dim_manufacturer.manufacturer",
+                            "nativeQueryRef": "manufacturer",
+                            "active": true
+                        }
+                    ]
+                },
+                "Y": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
+                                    "Property": "Median Price (BAM)"
+                                }
+                            },
+                            "queryRef": "fact_listing.Median Price (BAM)",
+                            "nativeQueryRef": "Median Price (BAM)"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Measure": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "fact_listing"
+                                    }
+                                },
+                                "Property": "Median Price (BAM)"
+                            }
+                        },
+                        "direction": "Descending"
+                    }
+                ],
+                "isDefaultSort": true
+            }
+        },
+        "visualContainerObjects": {
+            "subTitle": [
+                {
+                    "properties": {
+                        "show": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "false"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "title": [
+                {
+                    "properties": {
+                        "text": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'Median asking price by manufacturer (BAM)'"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "drillFilterOtherVisuals": true
+    },
+    "filterConfig": {
+        "filters": [
+            {
+                "name": "282ba015b920d23c760e",
+                "field": {
+                    "Column": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "dim_manufacturer"
+                            }
+                        },
+                        "Property": "manufacturer"
+                    }
+                },
+                "type": "Categorical"
+            },
+            {
+                "name": "f77b7432ab0366b005b0",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "Median Price (BAM)"
+                    }
+                },
+                "type": "Advanced"
+            },
+            {
+                "name": "71798d3018e80b1570a5",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "Listings"
+                    }
+                },
+                "type": "Advanced",
+                "filter": {
+                    "Version": 2,
+                    "From": [
+                        {
+                            "Name": "f",
+                            "Entity": "fact_listing",
+                            "Type": 0
+                        }
+                    ],
+                    "Where": [
+                        {
+                            "Condition": {
+                                "Comparison": {
+                                    "ComparisonKind": 2,
+                                    "Left": {
+                                        "Measure": {
+                                            "Expression": {
+                                                "SourceRef": {
+                                                    "Source": "f"
+                                                }
+                                            },
+                                            "Property": "Listings"
+                                        }
+                                    },
+                                    "Right": {
+                                        "Literal": {
+                                            "Value": "10L"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                },
+                "howCreated": "User"
+            }
+        ]
+    }
+}

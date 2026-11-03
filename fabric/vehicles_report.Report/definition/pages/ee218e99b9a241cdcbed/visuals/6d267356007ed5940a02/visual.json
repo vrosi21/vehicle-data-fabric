@@ -1,0 +1,185 @@
+{
+    "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+    "name": "6d267356007ed5940a02",
+    "position": {
+        "x": 24,
+        "y": 726,
+        "z": 4,
+        "height": 330,
+        "width": 928,
+        "tabOrder": 4
+    },
+    "visual": {
+        "visualType": "tableEx",
+        "query": {
+            "queryState": {
+                "Values": {
+                    "projections": [
+                        {
+                            "field": {
+                                "Column": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "dim_manufacturer"
+                                        }
+                                    },
+                                    "Property": "manufacturer"
+                                }
+                            },
+                            "queryRef": "dim_manufacturer.manufacturer",
+                            "nativeQueryRef": "manufacturer"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
+                                    "Property": "Listings"
+                                }
+                            },
+                            "queryRef": "fact_listing.Listings",
+                            "nativeQueryRef": "Listings"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
+                                    "Property": "Median Price (BAM)"
+                                }
+                            },
+                            "queryRef": "fact_listing.Median Price (BAM)",
+                            "nativeQueryRef": "Median Price (BAM)"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
+                                    "Property": "Median Mileage (km)"
+                                }
+                            },
+                            "queryRef": "fact_listing.Median Mileage (km)",
+                            "nativeQueryRef": "Median Mileage (km)"
+                        }
+                    ]
+                }
+            },
+            "sortDefinition": {
+                "sort": [
+                    {
+                        "field": {
+                            "Measure": {
+                                "Expression": {
+                                    "SourceRef": {
+                                        "Entity": "fact_listing"
+                                    }
+                                },
+                                "Property": "Listings"
+                            }
+                        },
+                        "direction": "Descending"
+                    }
+                ]
+            }
+        },
+        "objects": {
+            "grid": [
+                {
+                    "properties": {
+                        "textSize": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "14D"
+                                }
+                            }
+                        }
+                    }
+                }
+            ],
+            "columnHeaders": [
+                {
+                    "properties": {
+                        "columnAdjustment": {
+                            "expr": {
+                                "Literal": {
+                                    "Value": "'growToFit'"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "drillFilterOtherVisuals": true
+    },
+    "filterConfig": {
+        "filters": [
+            {
+                "name": "bb7a8e0d554bdd0755e4",
+                "field": {
+                    "Column": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "dim_manufacturer"
+                            }
+                        },
+                        "Property": "manufacturer"
+                    }
+                },
+                "type": "Categorical"
+            },
+            {
+                "name": "a5c738d9a741ba0d0138",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "Listings"
+                    }
+                },
+                "type": "Advanced"
+            },
+            {
+                "name": "a75676578b04159a4eeb",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "Median Price (BAM)"
+                    }
+                },
+                "type": "Advanced"
+            },
+            {
+                "name": "61c917c78ce4142981ab",
+                "field": {
+                    "Measure": {
+                        "Expression": {
+                            "SourceRef": {
+                                "Entity": "fact_listing"
+                            }
+                        },
+                        "Property": "Median Mileage (km)"
+                    }
+                },
+                "type": "Advanced"
+            }
+        ]
+    }
+}
