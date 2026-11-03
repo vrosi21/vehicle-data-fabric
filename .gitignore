@@ -2,4 +2,4 @@ __pycache__/
 spark-warehouse/
 metastore_db/
 derby.log
-docs/interview-pack.md
+private/

@@ -35,12 +35,12 @@ The port was drafted with Claude Code; every change below was checked against th
 - Checked with a DAX query: every listing maps to a fuel (737 + 1051 + 86 + 21 + 17 + 825 = 2737). The "(Blank)" slicer tile is an empty member, not lost rows.
 - Model fix: `production_year` defaulted to "Summarize by: Sum" (Power BI adds up any number column), so it couldn't go on a chart axis. Set to None. Same idea as treating IDs and years as labels, not quantities.
 - Report `vehicles_report`: card, fuel slicer, median price by brand, median price by year, brand table, caveat note. Screenshot: `docs/report.png`.
-- Second pass after a "this looks bad" review:
+- Second pass after review:
   - Brand chart only shows brands with 10+ listings, year chart only years with 5+. A median over 1-2 cars is noise (Corvette and Maybach topped the chart with one listing each).
   - Card used "Auto" display units (3K) with no override, so a text measure `Listings Label = FORMAT([Listings], "#,0")` shows 2,737. Trade-off: text measures can't be summed or sorted as numbers.
   - Slicer hides the empty (Blank) member; prices shown with 0 decimals; one grid layout.
 
-## Data caveats (say these out loud)
+## Data caveats
 - 38% of listings (1051) have unknown fuel: sources 3, 7, 8 and 12 had no fuel column.
 - Each source scraped a different slice: one brand per group, source 9 only listings around 95k BAM and up. "Median price by brand" shows how the data was collected, not the market.
 - Source 9 has 90 listings under 1,000 km. 86 of them are 2024-2025 cars from dealers ("na stanju" = in stock), so they're real new cars, not errors.
