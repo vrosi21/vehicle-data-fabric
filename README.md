@@ -50,18 +50,34 @@ Moving the code to a new engine exposed three bugs in my original pandas version
 - 38% of listings have unknown fuel: 4 sources had no fuel column.
 - Some sellers type horsepower into the kW field; that can't be fixed without parsing titles.
 
+## Dev → Test
+
+- A deployment pipeline promotes the four items from `vehicle-data-dev` to a Test workspace. Definitions move, data doesn't: the Test lakehouse arrives empty and the Test model binds to it, so Test gets its own load.
+- Testing with Test's own data turned up an empty "(Blank)" tile in the fuel slicer. It was fixed in Dev (a measure filter that only shows tiles with listings) and promoted, not patched in Test.
+- Native Git sync was disabled by the tenant's policy, so the item definitions in `fabric/` were exported with the Fabric CLI (`fab bulk-export`) and committed by hand.
+
+## Repo layout
+
+| Path | Contents |
+|---|---|
+| `data/raw/` | the 12 source CSVs |
+| `notebooks/vehicle_medallion.ipynb` | the notebook, importable into Fabric |
+| `fabric/` | item definitions exported from the workspace: notebook, lakehouse, semantic model (TMDL), report (PBIR) |
+| `local/run_local.py` | runs the notebook with local Spark, no Fabric needed |
+| `docs/` | setup guide, port notes, report screenshot |
+
 ## Run it
 
 1. Fabric workspace on a trial or F capacity, a lakehouse, the 12 files from `data/raw/` in `Files/bronze/`.
-2. Import the notebook, attach the lakehouse as default, Run all.
+2. Import the notebook, attach the lakehouse as default, Run all. Expect `to_number: 11/11 cases pass`, seven `PASS` lines and `silver_listings: 2737 rows`.
 3. New semantic model on the three gold tables, add relationships and measures (see `docs/fabric-steps.md`).
 
 Locally (PySpark + Java): `python local/run_local.py` runs the same notebook against `data/raw/`.
 
 ## Next
 
-- Git integration and a dev → test deployment pipeline (definitions move between stages, data doesn't)
 - A scheduled Data Pipeline instead of manual uploads
+- Native Git integration on a tenant that allows it, replacing the manual export
 
 ## How it was built
 

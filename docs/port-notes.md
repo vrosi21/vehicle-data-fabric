@@ -30,7 +30,7 @@ The port was drafted with Claude Code; every change below was checked against th
 - Raw 3171 → silver 2737 + rejected 385 (383 no price, 2 manual removals) + 49 merged duplicates
 - 32 manufacturers
 
-## Semantic model + report (Fabric, built through the browser)
+## Semantic model + report
 - Direct Lake model `vehicles_model` on `fact_listing`, `dim_manufacturer`, `dim_fuel`; 2 many-to-one relationships; measures Listings, Median Price (BAM), Avg Price (BAM), Median Mileage (km).
 - Checked with a DAX query: every listing maps to a fuel (737 + 1051 + 86 + 21 + 17 + 825 = 2737). The "(Blank)" slicer tile is an empty member, not lost rows.
 - Model fix: `production_year` defaulted to "Summarize by: Sum" (Power BI adds up any number column), so it couldn't go on a chart axis. Set to None. Same idea as treating IDs and years as labels, not quantities.
