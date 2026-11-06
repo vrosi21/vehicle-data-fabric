@@ -51,6 +51,20 @@
                                             "Entity": "fact_listing"
                                         }
                                     },
+                                    "Property": "Share of Listings"
+                                }
+                            },
+                            "queryRef": "fact_listing.Share of Listings",
+                            "nativeQueryRef": "Share of Listings"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
                                     "Property": "Median Price (BAM)"
                                 }
                             },
@@ -70,6 +84,20 @@
                             },
                             "queryRef": "fact_listing.Median Mileage (km)",
                             "nativeQueryRef": "Median Mileage (km)"
+                        },
+                        {
+                            "field": {
+                                "Measure": {
+                                    "Expression": {
+                                        "SourceRef": {
+                                            "Entity": "fact_listing"
+                                        }
+                                    },
+                                    "Property": "Diesel Listings"
+                                }
+                            },
+                            "queryRef": "fact_listing.Diesel Listings",
+                            "nativeQueryRef": "Diesel Listings"
                         }
                     ]
                 }

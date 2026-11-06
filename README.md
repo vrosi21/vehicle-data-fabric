@@ -11,7 +11,7 @@ A first end-to-end build in a Microsoft Fabric trial, on my own data: 3,171 used
 | Bronze | Lakehouse `Files/bronze/` + `bronze_listings` | 12 raw CSVs as uploaded, stacked into one table, everything still text |
 | Silver | `silver_listings`, `silver_rejects` | numbers parsed, units converted, duplicates merged, bad rows kept with a reason |
 | Gold | `fact_listing`, `dim_manufacturer`, `dim_fuel` | star schema for reporting |
-| Model | `vehicles_model` (Direct Lake) | 2 relationships, measures for listings, median price, median mileage |
+| Model | `vehicles_model` (Direct Lake) | 2 relationships, measures for listings, median price, median mileage, diesel listings and brand share (`CALCULATE`) |
 | Report | `vehicles_report` | brand and year price charts, fuel slicer, brand table, data caveats |
 
 The notebook is [notebooks/vehicle_medallion.ipynb](notebooks/vehicle_medallion.ipynb). Click-by-click setup: [docs/fabric-steps.md](docs/fabric-steps.md).

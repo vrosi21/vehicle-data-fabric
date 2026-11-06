@@ -40,6 +40,22 @@ table fact_listing
 	measure 'Listings Label' = FORMAT([Listings], "#,0")
 		lineageTag: fc22dae8-7b6d-482e-91cb-387590551360
 
+	measure 'Diesel Listings' = CALCULATE([Listings], dim_fuel[fuel_label] = "Diesel")
+		formatString: #,0
+		lineageTag: 0f5c5908-601e-4b71-9deb-0eefe41b23f8
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
+	measure 'Share of Listings' = DIVIDE([Listings], CALCULATE([Listings], ALL(dim_manufacturer)))
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 70d161e0-77e9-4b1e-9e8c-c6b325ade18c
+
+		changedProperty = Name
+
+		changedProperty = FormatString
+
 	column listing_id
 		dataType: string
 		lineageTag: 4b78f9a8-1308-4613-a09a-552344f91cae

@@ -31,7 +31,7 @@ The port was drafted with Claude Code; every change below was checked against th
 - 32 manufacturers
 
 ## Semantic model + report
-- Direct Lake model `vehicles_model` on `fact_listing`, `dim_manufacturer`, `dim_fuel`; 2 many-to-one relationships; measures Listings, Median Price (BAM), Avg Price (BAM), Median Mileage (km).
+- Direct Lake model `vehicles_model` on `fact_listing`, `dim_manufacturer`, `dim_fuel`; 2 many-to-one relationships; measures Listings, Median Price (BAM), Avg Price (BAM), Median Mileage (km), Diesel Listings, Share of Listings.
 - Checked with a DAX query: every listing maps to a fuel (737 + 1051 + 86 + 21 + 17 + 825 = 2737). The "(Blank)" slicer tile is an empty member, not lost rows.
 - Model fix: `production_year` defaulted to "Summarize by: Sum" (Power BI adds up any number column), so it couldn't go on a chart axis. Set to None. Same idea as treating IDs and years as labels, not quantities.
 - Report `vehicles_report`: card, fuel slicer, median price by brand, median price by year, brand table, caveat note. Screenshot: `docs/report.png`.
@@ -39,6 +39,11 @@ The port was drafted with Claude Code; every change below was checked against th
   - Brand chart only shows brands with 10+ listings, year chart only years with 5+. A median over 1-2 cars is noise (Corvette and Maybach topped the chart with one listing each).
   - Card used "Auto" display units (3K) with no override, so a text measure `Listings Label = FORMAT([Listings], "#,0")` shows 2,737. Trade-off: text measures can't be summed or sorted as numbers.
   - Slicer hides the empty (Blank) member; prices shown with 0 decimals; one grid layout.
+- Third pass: two `CALCULATE` measures in the brand table.
+  - `Diesel Listings = CALCULATE([Listings], dim_fuel[fuel_label] = "Diesel")` replaces the fuel filter, so it stays put when the slicer changes (Toyota: 232 with any fuel selected).
+  - `Share of Listings = DIVIDE([Listings], CALCULATE([Listings], ALL(dim_manufacturer)))` removes only the brand filter, so shares add up to 100% within the selected fuel (Petrol: Mercedes-Benz 36.1%, Ford 28.5%).
+  - Checked with a DAX query against the live model; same numbers as a local run of the notebook.
+  - Added by editing the table's `visual.json` and importing the report with the Fabric CLI, not through the editor.
 
 ## Data caveats
 - 38% of listings (1051) have unknown fuel: sources 3, 7, 8 and 12 had no fuel column.

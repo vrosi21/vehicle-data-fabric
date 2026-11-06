@@ -44,7 +44,10 @@ It's the same Delta table, read with T-SQL instead of Spark.
    Median Price (BAM) = MEDIAN(fact_listing[price_bam])
    Median Mileage (km) = MEDIAN(fact_listing[mileage_km])
    Listings Label = FORMAT([Listings], "#,0")
+   Diesel Listings = CALCULATE([Listings], dim_fuel[fuel_label] = "Diesel")
+   Share of Listings = DIVIDE([Listings], CALCULATE([Listings], ALL(dim_manufacturer)))
    ```
+   `Diesel Listings` replaces the slicer's fuel filter, so it doesn't move when you pick another fuel. `Share of Listings` removes only the brand filter for the denominator, so it's each brand's share within the selected fuel. Format it as a percentage.
 4. Set `production_year` → **Summarize by: None**. Otherwise Power BI adds up years and they can't go on an axis.
 
 Facts hold the numbers, dimensions hold what you filter by, measures hold the agreed calculations.
@@ -53,7 +56,7 @@ Facts hold the numbers, dimensions hold what you filter by, measures hold the ag
 - Card: `Listings Label`. Slicer: `dim_fuel[fuel_label]` (tile style, filter out blank).
 - Bar chart: manufacturer × `Median Price (BAM)`, visual filter `Listings >= 10`.
 - Column chart: `production_year` × `Median Price (BAM)`, visual filter `Listings >= 5`.
-- Table: manufacturer, `Listings`, medians; column auto-size **Grow to fit**.
+- Table: manufacturer, `Listings`, `Share of Listings`, medians, `Diesel Listings`; column auto-size **Grow to fit**.
 - A text panel stating the data caveats (see README).
 
 ## 7. Deployment pipeline
@@ -70,3 +73,8 @@ Facts hold the numbers, dimensions hold what you filter by, measures hold the ag
   fab bulk-export "vehicle-data-dev.Workspace" -o ./fabric --recursive -f
   ```
   That's how the `fabric/` folder in this repo was produced: the notebook as Python, the semantic model as TMDL, the report as JSON.
+- The way back works too: edit a definition and import it. The report's `definition.pbir` points to the model by folder (`byPath`), which suits Git, but the import API wants `byConnection` (`semanticmodelid=<model id>`). Import from a copy with that swapped:
+  ```bash
+  fab get "vehicle-data-dev.Workspace/vehicles_model.SemanticModel" -q id
+  fab import "vehicle-data-dev.Workspace/vehicles_report.Report" -i <copy>/vehicles_report.Report -f
+  ```
