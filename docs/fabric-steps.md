@@ -42,6 +42,7 @@ It's the same Delta table, read with T-SQL instead of Spark.
    ```DAX
    Listings = COUNTROWS(fact_listing)
    Median Price (BAM) = MEDIAN(fact_listing[price_bam])
+   Avg Price (BAM) = AVERAGE(fact_listing[price_bam])
    Median Mileage (km) = MEDIAN(fact_listing[mileage_km])
    Listings Label = FORMAT([Listings], "#,0")
    Diesel Listings = CALCULATE([Listings], dim_fuel[fuel_label] = "Diesel")

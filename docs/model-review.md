@@ -21,7 +21,7 @@ Loop: export with `fab bulk-export` → run `sma report` → fix in the TMDL →
 | `implicit-measure`: `price_bam`, `mileage_km`, `engine_power_kw` summarise as Sum | `fact_listing.tmdl` | `summarizeBy: none`, and `discourageImplicitMeasures` on the model. Numbers go through the measures, so nobody drags in a "Sum of price" that competes with `Median Price (BAM)`. |
 | `unformatted-measure`: `Avg Price (BAM)` | `fact_listing.tmdl` | `formatString: #,0` |
 | Key columns visible: `fact_listing[listing_id]`, `[manufacturer]`, `[fuel_type]` | readiness check | hidden; filter by the dimension columns instead. `dim_fuel[fuel_type]` (the Bosnian code) hidden too, since `fuel_label` is the one to show. |
-| No descriptions on tables, columns or measures | readiness check | 26 descriptions written as `///` lines in the TMDL. They show as tooltips in the field list and are what Copilot reads. |
+| No descriptions on tables, columns or measures | readiness check | 25 descriptions, one per table, column and measure, written as `///` lines in the TMDL. They show as tooltips in the field list and are what Copilot reads. |
 
 The live model gave the same numbers after the import (Toyota 414 listings, 15.1% share, 232 diesel).
 
