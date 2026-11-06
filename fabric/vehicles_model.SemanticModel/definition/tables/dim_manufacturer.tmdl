@@ -1,7 +1,9 @@
+/// One row per brand. Filters fact_listing through manufacturer.
 table dim_manufacturer
 	lineageTag: cd406b33-285c-47f1-8d9d-64f8e495c49a
 	sourceLineageTag: [dbo].[dim_manufacturer]
 
+	/// Brand name.
 	column manufacturer
 		dataType: string
 		lineageTag: 986810b8-f1ba-4351-a890-beeadc376110

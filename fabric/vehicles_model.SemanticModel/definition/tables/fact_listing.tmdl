@@ -1,7 +1,9 @@
+/// One row per priced OLX.ba listing (2,737). Aggregate through the measures; filter by dim_manufacturer and dim_fuel.
 table fact_listing
 	lineageTag: 045066de-621c-4150-88ee-842340868bff
 	sourceLineageTag: [dbo].[fact_listing]
 
+	/// Number of priced listings in the current filter.
 	measure Listings = COUNTROWS(fact_listing)
 		formatString: #,0
 		lineageTag: b0565c24-e2fc-4edb-8d97-12cae05aaa64
@@ -10,6 +12,7 @@ table fact_listing
 
 		changedProperty = FormatString
 
+	/// Median asking price in BAM. Median rather than average, because a few premium listings pull the mean up.
 	measure 'Median Price (BAM)' = MEDIAN(fact_listing[price_bam])
 		formatString: #,0
 		lineageTag: 17f2882f-bd1e-468a-b57f-8d7d938acf5c
@@ -20,13 +23,16 @@ table fact_listing
 
 		annotation PBI_FormatHint = {"isDecimal":true}
 
+	/// Mean asking price in BAM. Pulled up by premium listings; compare with Median Price (BAM).
 	measure 'Avg Price (BAM)' = AVERAGE(fact_listing[price_bam])
+		formatString: #,0
 		lineageTag: 839b2842-bc6e-4cdb-bbcf-98cdf0bbb9a9
 
 		changedProperty = Name
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// Median odometer reading in km. Listings without a mileage are ignored.
 	measure 'Median Mileage (km)' = MEDIAN(fact_listing[mileage_km])
 		formatString: #,0
 		lineageTag: 99f5eb1b-c69a-4eb7-9ae2-db98ff05e401
@@ -37,9 +43,11 @@ table fact_listing
 
 		annotation PBI_FormatHint = {"isDecimal":true}
 
+	/// Listings as text with a thousands separator, for the card. Text, so it cannot be summed or sorted as a number.
 	measure 'Listings Label' = FORMAT([Listings], "#,0")
 		lineageTag: fc22dae8-7b6d-482e-91cb-387590551360
 
+	/// Listings with fuel Diesel, whatever the fuel slicer selects. The brand filter still applies.
 	measure 'Diesel Listings' = CALCULATE([Listings], dim_fuel[fuel_label] = "Diesel")
 		formatString: #,0
 		lineageTag: 0f5c5908-601e-4b71-9deb-0eefe41b23f8
@@ -48,6 +56,7 @@ table fact_listing
 
 		changedProperty = FormatString
 
+	/// Share of listings within the selected fuel: Listings divided by Listings with the brand filter removed.
 	measure 'Share of Listings' = DIVIDE([Listings], CALCULATE([Listings], ALL(dim_manufacturer)))
 		formatString: 0.0%;-0.0%;0.0%
 		lineageTag: 70d161e0-77e9-4b1e-9e8c-c6b325ade18c
@@ -56,8 +65,10 @@ table fact_listing
 
 		changedProperty = FormatString
 
+	/// OLX listing ID taken from the URL; unique per row.
 	column listing_id
 		dataType: string
+		isHidden
 		lineageTag: 4b78f9a8-1308-4613-a09a-552344f91cae
 		sourceLineageTag: listing_id
 		summarizeBy: none
@@ -65,8 +76,10 @@ table fact_listing
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Brand key to dim_manufacturer. Filter by dim_manufacturer[manufacturer] instead.
 	column manufacturer
 		dataType: string
+		isHidden
 		lineageTag: 1eb220dd-6a8f-4b58-bee2-46525c512f51
 		sourceLineageTag: manufacturer
 		summarizeBy: none
@@ -74,6 +87,7 @@ table fact_listing
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Model as entered by the seller.
 	column model
 		dataType: string
 		lineageTag: 440e1125-b79e-432a-82f0-44244a8df020
@@ -83,6 +97,7 @@ table fact_listing
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Model with spelling variants grouped, e.g. Cee'd and Ceed.
 	column general_model
 		dataType: string
 		lineageTag: 03ca20f6-c087-4932-8537-b42dfd604f96
@@ -92,6 +107,7 @@ table fact_listing
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Year of manufacture, 1950-2025. A label, not a quantity, so it is not summarised.
 	column production_year
 		dataType: int64
 		formatString: 0
@@ -104,8 +120,10 @@ table fact_listing
 
 		annotation SummarizationSetBy = User
 
+	/// Fuel code as scraped (Bosnian), key to dim_fuel. Filter by dim_fuel[fuel_label] instead.
 	column fuel_type
 		dataType: string
+		isHidden
 		lineageTag: 60c8933e-495c-4d45-bb7a-17baff8bb949
 		sourceLineageTag: fuel_type
 		summarizeBy: none
@@ -113,6 +131,7 @@ table fact_listing
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Gearbox as scraped; Unknown when missing.
 	column transmission
 		dataType: string
 		lineageTag: 2e429e34-7fbe-43dd-a142-c3baa9a6dbee
@@ -122,6 +141,7 @@ table fact_listing
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Colour as scraped; Unknown when missing.
 	column color
 		dataType: string
 		lineageTag: eb75c880-d65f-42af-b9cf-75853d190197
@@ -131,38 +151,42 @@ table fact_listing
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Asking price in BAM (convertible marks). Always present: listings without a price are rejected in silver.
 	column price_bam
 		dataType: double
 		lineageTag: 90df7bda-79fe-4784-b811-958d9c93a902
 		sourceLineageTag: price_bam
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: price_bam
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// Odometer reading in km. Missing when not given or above 900,000 km.
 	column mileage_km
 		dataType: int64
 		formatString: 0
 		lineageTag: ccd05580-728a-4b5c-9109-42e6f7bad327
 		sourceLineageTag: mileage_km
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: mileage_km
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
+	/// Engine power in kW, converted from hp where a source used hp. Missing outside 30-600 kW.
 	column engine_power_kw
 		dataType: double
 		lineageTag: 66307f8d-a80b-4feb-84d7-884e2412bd41
 		sourceLineageTag: engine_power_kw
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: engine_power_kw
 
-		annotation SummarizationSetBy = Automatic
+		annotation SummarizationSetBy = User
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	/// Which of the 12 scraped files the listing came from. Each source covers a different slice of the market.
 	column source_file
 		dataType: string
 		lineageTag: cf930171-6d1b-4acd-9083-8faae2279aa6

@@ -1,9 +1,12 @@
+/// One row per fuel type, with English labels. Filters fact_listing through fuel_type.
 table dim_fuel
 	lineageTag: 5bfeec2d-1155-46cb-bb1c-71c31a4c578d
 	sourceLineageTag: [dbo].[dim_fuel]
 
+	/// Fuel code as scraped (Bosnian), key to fact_listing.
 	column fuel_type
 		dataType: string
+		isHidden
 		lineageTag: 2ec84d93-3258-48b1-8333-2b7c16da765f
 		sourceLineageTag: fuel_type
 		summarizeBy: none
@@ -11,6 +14,7 @@ table dim_fuel
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Fuel in English: Diesel, Petrol, Hybrid, LPG, Electric, Unknown.
 	column fuel_label
 		dataType: string
 		lineageTag: b05811f9-e7d7-4d60-915f-1958b95e4e2c

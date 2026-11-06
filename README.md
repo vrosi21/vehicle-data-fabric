@@ -56,6 +56,10 @@ Moving the code to a new engine exposed three bugs in my original pandas version
 - Testing with Test's own data turned up an empty "(Blank)" tile in the fuel slicer. It was fixed in Dev (a measure filter that only shows tiles with listings) and promoted, not patched in Test.
 - Native Git sync was disabled by the tenant's policy, so the item definitions in `fabric/` were exported with the Fabric CLI (`fab bulk-export`) and committed by hand.
 
+## Model review
+
+The exported TMDL was reviewed with Data Crafters' open-source [semantic-model-analyzer](https://github.com/DataCraftersLab/craftys-fabric-skills): 3 findings worth acting on → 0, AI readiness 4 → 9 of 16 checks. Fixes (descriptions, hidden keys, no implicit sums) were made in the TMDL and imported with the Fabric CLI. Details: [docs/model-review.md](docs/model-review.md).
+
 ## Repo layout
 
 | Path | Contents |
